@@ -3,10 +3,12 @@ import random
 import requests
 from flask import Flask, jsonify
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
 @app.route("/api/movies/random", methods=["GET"])
@@ -80,4 +82,4 @@ def get_random_movie():
     return jsonify({"error": "Could not fetch movie"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
